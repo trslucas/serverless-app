@@ -4,8 +4,6 @@ import type {
   Context,
 } from 'aws-lambda'
 
-// FUNÇÃO QUE BATE NO API GATEWAY
-
 export async function handler(
   event: APIGatewayProxyEvent,
   context: Context,
@@ -18,31 +16,33 @@ export async function handler(
     `Lambda RequestId: ${lambdaRequestId}`,
   )
 
-  const { httpMethod } = event
   if (event.resource === '/products') {
-    if (httpMethod === 'GET') {
-      console.log('GET')
+    console.log('POST /products')
 
-      return {
-        statusCode: 200,
-        body: JSON.stringify({
-          message: 'Get products - OK',
-        }),
-      }
+    return {
+      statusCode: 201,
+      body: 'POST /products',
     }
   } else if (event.resource === '/products/{id}') {
     const productId = event.pathParameters!.id as string
-    console.log(`GET /products/${productId}`)
 
-    return {
-      statusCode: 200,
-      body: `GET /products/${productId}`,
+    if (event.httpMethod === 'PUT') {
+      console.log(`PUT /products/${productId}`)
+      return {
+        statusCode: 200,
+        body: `PUT /products/${productId}`,
+      }
+    } else if (event.httpMethod === 'DELETE') {
+      console.log(`DELETE /products/${productId}`)
+      return {
+        statusCode: 200,
+        body: `DELETE /products/${productId}`,
+      }
     }
   }
+
   return {
     statusCode: 400,
-    body: JSON.stringify({
-      message: 'Bad request',
-    }),
+    body: 'Bad Request',
   }
 }
