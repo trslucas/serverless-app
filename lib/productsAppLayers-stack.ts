@@ -15,13 +15,10 @@ export class ProductsAppLayersStack extends cdk.Stack {
       layerVersionName: 'ProductsLayer',
       removalPolicy: cdk.RemovalPolicy.RETAIN,
     })
-    const ssmParameters = new ssm.StringParameter(
-      this,
-      'ProductsLayerVersionArn',
-      {
-        parameterName: 'ProductsLayerVersionArn',
-        stringValue: this.productsLayers.layerVersionArn,
-      },
-    )
+    // eslint-disable-next-line no-new
+    new ssm.StringParameter(this, 'ProductsLayerVersionArn', {
+      parameterName: 'ProductsLayerVersionArn',
+      stringValue: this.productsLayers.layerVersionArn,
+    })
   }
 }

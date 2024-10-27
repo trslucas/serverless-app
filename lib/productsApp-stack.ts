@@ -49,8 +49,8 @@ export class ProductsAppStack extends cdk.Stack {
         memorySize: 512,
         timeout: cdk.Duration.seconds(10),
         bundling: {
-          minify: true,
-          sourceMap: false,
+          minify: false,
+          sourceMap: true,
         },
         environment: {
           PROCUTS_DDB: this.productsDdb.tableName,
@@ -72,8 +72,8 @@ export class ProductsAppStack extends cdk.Stack {
         memorySize: 512,
         timeout: cdk.Duration.seconds(10),
         bundling: {
-          minify: true,
-          sourceMap: false,
+          minify: false,
+          sourceMap: true,
         },
         environment: {
           PROCUTS_DDB: this.productsDdb.tableName,
